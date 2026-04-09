@@ -9,5 +9,8 @@
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "echo lint shared"
+  },
+  "dependencies": {
+    "zod": "^4.x.x"
   }
 }

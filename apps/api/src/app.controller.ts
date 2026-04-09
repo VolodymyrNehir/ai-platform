@@ -1,5 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+import { ChatMessage } from '@ai-platform/shared';
 
 @Controller()
 export class AppController {
