@@ -1,5 +1,7 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { AiService } from '../api/ai.service';
+import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import { chatRequestSchema } from '@ai-platform/shared';
+import { z } from 'zod';
+import { AiService } from '../ai/ai.service';
 
 class ChatDto {
   message: string;
@@ -11,6 +13,12 @@ export class ChatController {
 
   @Post()
   async chat(@Body() body: ChatDto) {
+    const parsed = z.safeParse(chatRequestSchema, body);
+
+    if (!parsed.success) {
+      throw new BadRequestException(z.flattenError(parsed.error));
+    }
+
     const reply = await this.aiService.generateText(body.message);
 
     return {

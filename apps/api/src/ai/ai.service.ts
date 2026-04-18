@@ -20,11 +20,16 @@ export class AiService {
   }
 
   async generateText(prompt: string): Promise<string> {
-    const response = await this.openai.responses.create({
-      model: this.model,
-      input: prompt,
-    });
+    try {
+      const response = await this.openai.responses.create({
+        model: this.model,
+        input: prompt,
+      });
 
-    return response.output_text;
+      return response.output_text;
+    } catch (error) {
+      console.error('OpenAI request failed', error);
+      throw error;
+    }
   }
 }
