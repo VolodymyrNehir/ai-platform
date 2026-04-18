@@ -1,21 +1,20 @@
-import { Body, Controller, Post } from "@nestjs/common";
-import { AiService } from "src/api/ai.service";
+import { Body, Controller, Post } from '@nestjs/common';
+import { AiService } from '../api/ai.service';
 
 class ChatDto {
- message: string;
+  message: string;
 }
 
-@Controller("chat")
-class ChatController {
-   
-    constructor(private readonly aiServer: AiService) {}
+@Controller('chat')
+export class ChatController {
+  constructor(private readonly aiService: AiService) {}
 
-    @Post()
-    async chat(@Body() Body: ChatDto) {
-        const reply = await this.aiServer.generateText(Body.message);
+  @Post()
+  async chat(@Body() body: ChatDto) {
+    const reply = await this.aiService.generateText(body.message);
 
-        return {
-            reply,
-        }
-    }
+    return {
+      reply,
+    };
+  }
 }
